@@ -1,23 +1,25 @@
+# draw a word cloud of the words on the R-bloggers splash page
+# aim is to do this once every two weeks
+
+#-----------------functionality------------
 library(rvest)
 library(dplyr)
 library(tm)
 library(wordcloud)
 library(RColorBrewer)
 library(showtext)
+library(praise)
 
 font.add.google("Dekko", "myfont")
 showtext.auto()
 
+# Twitter credentials (not recognised in Git):
 source("credentials_setup.R")
 
+#---------------download data-------------
 webpage <- read_html("http://www.r-bloggers.com/")
 
-# the data we want is in the first table on this page
-# the html_table() command coerces the data into a data frame
-
-
-
-
+# convert to a corpus and remove stopwords, months, etc
 rb <- webpage %>% 
    html_text() %>% 
    VectorSource() %>% 
@@ -29,6 +31,7 @@ rb <- webpage %>%
    TermDocumentMatrix() %>%
    as.matrix() 
 
+# convert to a data frame, remove numbers, aggregate up again
 rb_df <- data_frame(freq = as.numeric(rb[, 1]), term = names(rb[,1])) %>%
    mutate(term = gsub("[0-9]+", "", term)) %>%
    group_by(term) %>%
@@ -36,14 +39,19 @@ rb_df <- data_frame(freq = as.numeric(rb[, 1]), term = names(rb[,1])) %>%
    ungroup() %>%
    filter(freq > 1)
    
-
+#--------------------draw image-------------------
 png("img/cloud.png", 1024, 512, res = 200)
-par(bg = "grey92", family = "myfont")   
+par(bg = "grey92", family = "myfont", mar = c(1, 1, 2, 1))   
 wordcloud(rb_df$term, rb_df$freq, random.order = FALSE, max.words = 100,
           random.color = TRUE, colors = brewer.pal(8, "Dark2"),
-          rot.per = 0, fixed.asp = FALSE, scale = c(18, .5))
+          rot.per = 0, fixed.asp = FALSE, scale = c(36, .5))
 title(main = "What the splash page for R-Bloggers looks like these days")
 dev.off()
 
+#--------------------send tweet----------------------
 
+tweettxt <- praise("${Exclamation}! ${Adjective} stuff.")
 
+tweet(tweettxt, mediaPath = "img/cloud.png")
+line <- paste(as.character(Sys.time()), tweettxt, sep="\t")
+write(line, file="tweets.log", append=TRUE)
