@@ -3,3 +3,4 @@
 .RData
 .httr-oauth
 credentials_setup.R
+*.Rout

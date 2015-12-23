@@ -1,4 +1,4 @@
-user# this gets tweets from people I'm following:
+user# this gets tweets from me.
 timeLine <- homeTimeline(n = 100, retryOnRateLimit = 1000)
 
 

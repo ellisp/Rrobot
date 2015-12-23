@@ -1,5 +1,6 @@
 #!/bin/bash
-# Main tweeting loop
-R CMD BATCH /srv/samba/share/Rrobot/tweeting/main.R
-env > /tmp/tweet.output
+# Main tweeting loop - run once a day
+cd ~/Rrobot
+R CMD BATCH tweeting/main.R
+
 

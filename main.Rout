@@ -40,7 +40,7 @@ The following objects are masked from ‘package:base’:
 
 > library(base64enc)
 > 
-> source("tweeting/credentials_setup.R")
+> source("credentials_setup.R")
 [1] "Using direct authentication"
 > 
 > #---------------main loop-------------
@@ -50,10 +50,10 @@ The following objects are masked from ‘package:base’:
 > source("tweeting/fortunes.R")
 > 
 > tweet(tweettxt)
-[1] "HappyRrobot: 'Some people familiar with R describe it as a supercharged version of Microsoft's Excel spreadsheet software.' Ashlee Vance."
+[1] "HappyRrobot: 'Soon, they'll be speaking R on the subway.' Michael Rennie."
 > line <- paste(as.character(Sys.time()), tweettxt, sep="\t")
 > write(line, file="tweets.log", append=TRUE)
 > 
 > proc.time()
    user  system elapsed 
-  1.472   0.036   2.293 
+  1.848   0.068   2.690 

@@ -1,0 +1,6 @@
+#!/bin/bash
+# Main listening loop.  Not yet run at all.
+cd ~/Rrobot
+R CMD BATCH listening/test.R
+
+
