@@ -1,0 +1,5 @@
+#!/bin/bash
+# Main tweeting loop
+R CMD BATCH /srv/samba/share/Rrobot/tweeting/main.R
+env > /tmp/tweet.output
+
