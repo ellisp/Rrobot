@@ -2,3 +2,4 @@
 # Tweeting the splash page of R-bloggers - run once a fortnight
 cd ~/Rrobot
 R CMD BATCH tweeting/r-bloggers.R
+

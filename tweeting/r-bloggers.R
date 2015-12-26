@@ -24,7 +24,7 @@ rb <- webpage %>%
    html_text() %>% 
    VectorSource() %>% 
    VCorpus() %>%
-   tm_map(removePunctuation) %>%
+   tm_map(removePunctuation)
    tm_map(content_transformer(tolower)) %>%
    tm_map(function(x) removeWords(x, stopwords("english"))) %>%
    tm_map(function(x) removeWords(x, tolower(format(ISOdate(2004, 1:12, 1), "%B")))) %>%
@@ -34,6 +34,7 @@ rb <- webpage %>%
 # convert to a data frame, remove numbers, aggregate up again
 rb_df <- data_frame(freq = as.numeric(rb[, 1]), term = names(rb[,1])) %>%
    mutate(term = gsub("[0-9]+", "", term)) %>%
+   filter(!term %in% c("by", "px")) %>%
    group_by(term) %>%
    summarise(freq = sum(freq)) %>%
    ungroup() %>%

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Main tweeting loop - run once a day
 cd ~/Rrobot
-R CMD BATCH tweeting/r-bloggers.R
+R CMD BATCH tweeting/main.R
 
 
