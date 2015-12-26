@@ -7,10 +7,16 @@ library(base64enc)
 source("credentials_setup.R")
 
 #---------------main loop-------------
-# down the track this will randomly choose between several options
+rnd <- runif(1)
+
+if(rnd > 0.5){
+   source("tweeting/fortunes.R")   
+} else {
+   source("tweeting/R-intro.R")
+}
 
 
-source("tweeting/fortunes.R")
+
 
 tweet(tweettxt)
 line <- paste(as.character(Sys.time()), tweettxt, sep="\t")
