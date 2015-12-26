@@ -5,3 +5,4 @@
 credentials_setup.R
 *.Rout
 img/*
+downloads/*
