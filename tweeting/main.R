@@ -9,13 +9,15 @@ source("credentials_setup.R")
 #---------------main loop-------------
 rnd <- runif(1)
 
-if(rnd > 0.5){
+if(rnd > 0.7){
    source("tweeting/fortunes.R")   
-} else {
+} else if(rnd > 0.3){
    source("tweeting/R-intro.R")
+} else {
+   source("tweeting/R-admin.R")
 }
 
-
+print(paste(rnd, tweettxt))
 
 
 tweet(tweettxt)
