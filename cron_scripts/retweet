@@ -1,0 +1,5 @@
+#!/bin/bash
+# Main retweeting loop - run twice a day
+cd ~/Rrobot
+
+R CMD BATCH tweeting/retweetRstats.R

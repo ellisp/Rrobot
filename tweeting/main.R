@@ -18,7 +18,6 @@ if(rnd > 0.7){
    source("tweeting/R-admin.R")
 }
 
-print(paste(rnd, tweettxt))
 
 
 tweet(tweettxt)
