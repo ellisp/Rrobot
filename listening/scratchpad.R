@@ -1,6 +1,17 @@
+# https://twittercommunity.com/t/method-to-retweet-with-comment/35330/18
+
 user# this gets tweets from me.
 timeLine <- homeTimeline(n = 100, retryOnRateLimit = 1000)
 
+
+
+
+retweet("680557134820458497", "ellis2013nz", "Test retweet with comment:")
+
+me <- searchTwitter("from:HappyRrobot")
+ellis <- searchTwitter("from:ellis2013nz")
+
+ellis_df <- twListToDF(ellis)
 
 # this gets tweets on rstats
 rstats <- searchTwitter("#rstats", n=150)
@@ -21,4 +32,4 @@ tweettxt <- rsdf[23, "text"]
 # check if an individual is following me
 friendships("ellis2013nz")
 
-View(rsdf)
+

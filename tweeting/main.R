@@ -5,6 +5,7 @@ library(dplyr)
 library(base64enc)
 
 source("credentials_setup.R")
+source("utils/functions.R")
 
 #---------------main loop-------------
 rnd <- runif(1)
