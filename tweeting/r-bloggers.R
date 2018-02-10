@@ -24,7 +24,7 @@ rb <- webpage %>%
    html_text() %>% 
    VectorSource() %>% 
    VCorpus() %>%
-   tm_map(removePunctuation)
+   tm_map(removePunctuation) %>%
    tm_map(content_transformer(tolower)) %>%
    tm_map(function(x) removeWords(x, stopwords("english"))) %>%
    tm_map(function(x) removeWords(x, tolower(format(ISOdate(2004, 1:12, 1), "%B")))) %>%
