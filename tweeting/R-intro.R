@@ -2,19 +2,21 @@ library(tm)
 library(ngram)
 library(stringr)
 
-# download.file("https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf", 
-#               destfile = "downloads/R-intro.pdf", mode = "wb")
+if(!"R-intro.pdf" %in% list.files("downloads")){
+ download.file("https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf", 
+               destfile = "downloads/R-intro.pdf", mode = "wb")
+}
               
 my_reader <- readPDF(control = list(text = "-layout"))
 uri <- paste0("file://", getwd(), "/downloads/R-intro.pdf")
 txt <- my_reader(elem = list(uri = uri), language = "en", id = "id1")
 
-# visual inspection shows the text starts in line 205
-# content(txt)[1:300]
-
+# visual inspection shows the text starts in line 8 (different from previous edition which was 205)
+# cat(content(txt)[8])
+# length(content(txt))
 
 # collapse into a single vector and derive the 2-grams:
-txt2 <- paste(content(txt)[-(1:205)], collapse =" ")
+txt2 <- paste(content(txt)[-(1:7)], collapse =" ")
 ng2 <- ngram(txt2, 2)
 
 # babble:
@@ -36,4 +38,4 @@ while(str_length(x) > 135){
    
 }
 
-tweettxt <- x
+tweettxt <- gsub("\n", " ", x)
