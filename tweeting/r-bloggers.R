@@ -9,10 +9,10 @@ library(wordcloud)
 library(RColorBrewer)
 library(showtext)
 library(praise)
+library(stringr)
 
-font.add.google("Dekko", "myfont")
-showtext.auto()
-
+font_add_google("Dekko", "myfont")
+showtext_auto()
 # Twitter credentials (not recognised in Git):
 source("credentials_setup.R")
 
@@ -34,18 +34,20 @@ rb <- webpage %>%
 # convert to a data frame, remove numbers, aggregate up again
 rb_df <- data_frame(freq = as.numeric(rb[, 1]), term = names(rb[,1])) %>%
    mutate(term = gsub("[0-9]+", "", term)) %>%
-   filter(!term %in% c("by", "px")) %>%
+   filter(!term %in% c("by", "px", "")) %>%
    group_by(term) %>%
    summarise(freq = sum(freq)) %>%
    ungroup() %>%
-   filter(freq > 1)
-   
+   filter(freq > 1 & str_length(term) > 1) %>%
+   arrange(desc(freq))
+
 #--------------------draw image-------------------
-png("img/cloud.png", 1024, 512, res = 200)
-par(bg = "grey92", family = "myfont", mar = c(1, 1, 2, 1))   
+png("img/cloud.png", 1024, 512, res = 100)
+showtext_opts(dpi = 100)
+par(bg = "grey92", family = "myfont", mar = c(1, 1, 4, 1))   
 wordcloud(rb_df$term, rb_df$freq, random.order = FALSE, max.words = 100,
           random.color = TRUE, colors = brewer.pal(8, "Dark2"),
-          rot.per = 0, fixed.asp = FALSE, scale = c(36, .5))
+          rot.per = 0, fixed.asp = FALSE, scale = c(5, .5))
 title(main = "What the splash page for R-Bloggers looks like these days")
 dev.off()
 
